@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import HeroFeature, HeroSection, NavLink, Service, SiteSettings
+from .models import AutomationSection, HeroFeature, HeroSection, NavLink, Service, SiteSettings
 
 
 @admin.register(SiteSettings)
@@ -42,8 +42,15 @@ class HeroFeatureAdmin(admin.ModelAdmin):
     list_filter = ("is_active",)
 
 
-@admin.register(Service)
-class ServiceAdmin(admin.ModelAdmin):
-    list_display = ("title", "is_active", "order")
+@admin.register(AutomationSection)
+class AutomationSectionAdmin(admin.ModelAdmin):
+    list_display = ("heading", "is_active", "order")
     list_editable = ("is_active", "order")
     list_filter = ("is_active",)
+
+
+@admin.register(Service)
+class ServiceAdmin(admin.ModelAdmin):
+    list_display = ("title", "icon_key", "icon_color", "is_active", "order")
+    list_editable = ("icon_key", "icon_color", "is_active", "order")
+    list_filter = ("is_active", "icon_color")

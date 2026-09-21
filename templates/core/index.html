@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load static %}
+{% load static core_extras %}
 
 {% block content %}
 <section id="hero" class="hero"
@@ -50,19 +50,58 @@
   </div>
 </section>
 
-<section id="services" class="services">
-  <div class="container">
-    <h2 class="reveal">Services</h2>
-    <div class="services-grid">
-      {% for service in services %}
-        <div class="service-card reveal">
-          {% if service.icon %}<img src="{{ service.icon.url }}" alt="{{ service.title }}">{% endif %}
-          <h3>{{ service.title }}</h3>
-          <p>{{ service.description }}</p>
+<section id="services" class="automation">
+  <div class="container automation-inner">
+    <div class="automation-copy">
+      {% if automation %}
+        {% if automation.eyebrow_text %}
+          <p class="section-eyebrow reveal">{{ automation.eyebrow_text }}</p>
+        {% endif %}
+        <h2 class="reveal">{{ automation.heading }}</h2>
+        {% if automation.description %}<p class="section-description reveal">{{ automation.description }}</p>{% endif %}
+      {% else %}
+        <h2>Add an Automation Section in the admin panel</h2>
+      {% endif %}
+    </div>
+
+    <div class="automation-grid">
+      {% if automation and automation.image %}
+        <div class="automation-media reveal">
+          <img src="{{ automation.image.url }}" alt="{{ automation.heading }}">
+          {% if automation.badge_label %}
+            <div class="media-badge">
+              <span class="badge-dot"></span>
+              <div>
+                <p class="badge-label">{{ automation.badge_label }}</p>
+                {% if automation.tag_list %}
+                  <div class="badge-tags">
+                    {% for tag in automation.tag_list %}<span class="badge-tag">{{ tag }}</span>{% endfor %}
+                  </div>
+                {% endif %}
+              </div>
+            </div>
+          {% endif %}
         </div>
-      {% empty %}
-        <p>Add services in the admin panel &rarr; Services &rarr; Add.</p>
-      {% endfor %}
+      {% endif %}
+
+      <div class="services-grid">
+        {% for service in services %}
+          <div class="service-card reveal">
+            <div class="service-icon icon-{{ service.icon_color }}">
+              {% if service.icon %}
+                <img src="{{ service.icon.url }}" alt="">
+              {% else %}
+                {% service_icon service.icon_key %}
+              {% endif %}
+            </div>
+            <h3>{{ service.title }}</h3>
+            <p>{{ service.description }}</p>
+            <span class="service-underline icon-{{ service.icon_color }}"></span>
+          </div>
+        {% empty %}
+          <p>Add services in the admin panel &rarr; Services &rarr; Add.</p>
+        {% endfor %}
+      </div>
     </div>
   </div>
 </section>

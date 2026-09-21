@@ -101,12 +101,62 @@ class HeroFeature(models.Model):
         return self.label
 
 
+class AutomationSection(models.Model):
+    """The "AI & Automation" block: eyebrow/heading/description + the image with its floating badge."""
+
+    eyebrow_text = models.CharField(max_length=100, blank=True, help_text='e.g. "AI & AUTOMATION".')
+    heading = models.CharField(max_length=200, help_text='e.g. "Put the repetitive work on autopilot."')
+    description = models.TextField(blank=True)
+    image = models.ImageField(upload_to="automation/", blank=True, null=True)
+
+    badge_label = models.CharField(
+        max_length=100, blank=True, default="Live automation running",
+        help_text="Small floating label shown over the image's top-left corner.",
+    )
+    badge_tags = models.CharField(
+        max_length=200, blank=True, help_text='Comma-separated short tags shown under the badge label, e.g. "AI, RPA, DOC, CRM".'
+    )
+
+    is_active = models.BooleanField(default=True)
+    order = models.PositiveIntegerField(default=0)
+
+    class Meta:
+        ordering = ["order"]
+        verbose_name = "Automation Section"
+        verbose_name_plural = "Automation Sections"
+
+    def __str__(self):
+        return self.heading
+
+    def tag_list(self):
+        return [t.strip() for t in self.badge_tags.split(",") if t.strip()]
+
+
 class Service(models.Model):
-    """Example repeatable content block (services/features grid) — a template for other repeatable sections."""
+    """A repeatable feature/service card — used in the AI & Automation grid and any similar section."""
+
+    ICON_CHOICES = [
+        ("monitor", "Monitor"),
+        ("refresh", "Refresh / RPA"),
+        ("document", "Document"),
+        ("grid", "Dashboard / CRM"),
+    ]
+    COLOR_CHOICES = [
+        ("blue", "Blue"),
+        ("orange", "Orange"),
+    ]
 
     title = models.CharField(max_length=100)
     description = models.TextField(blank=True)
-    icon = models.ImageField(upload_to="services/", blank=True, null=True)
+    icon_key = models.CharField(
+        max_length=20, choices=ICON_CHOICES, default="monitor",
+        help_text="Built-in icon shown in the colored square — no image upload needed.",
+    )
+    icon_color = models.CharField(max_length=10, choices=COLOR_CHOICES, default="blue")
+    icon = models.ImageField(
+        upload_to="services/", blank=True, null=True,
+        help_text="Optional: upload a custom icon image to override the built-in one above.",
+    )
     order = models.PositiveIntegerField(default=0)
     is_active = models.BooleanField(default=True)
 
