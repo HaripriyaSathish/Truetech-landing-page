@@ -55,9 +55,32 @@ python manage.py runserver
 
 - Public site: http://127.0.0.1:8000/
 - Admin panel: http://127.0.0.1:8000/admin/ — log in with the superuser you
-  just created. `Hero Sections`, `Services`, `Site Settings` are already
-  there as a working example (add a Hero Section, mark it Active, refresh
-  the homepage).
+  just created.
+
+The homepage is empty until you add content in the admin. Fill these in,
+roughly top to bottom of the page:
+
+| Admin section | Controls |
+|---|---|
+| Site Settings (1 row) | Logo text, header CTA, footer description/tagline, social links |
+| Navigation Links | Header nav bar items |
+| Hero Sections + Hero Feature Pills | Top banner: heading, CTAs, stat badge, the 4 pills |
+| Automation Sections + Services | "AI & Automation" block + its 4 feature cards |
+| CTA Banners | The gradient "Ready to automate?" bar |
+| BPO Sections + BPO Feature Cards | "Business Process Outsourcing" block |
+| Offices Sections + Offices | Dubai/Chennai cards + the "Around the clock" bar |
+| Why Us Sections + Why Us Feature Cards | 6-card grid around the center image |
+| Commitments Sections + Commitment Steps | "How we work" 3 image cards |
+| Process Sections + Process Steps | Blue 6-step timeline |
+| Service Lines Sections + Service Lines | The interactive 8-row tabbed panel |
+| FAQ Sections + FAQ Items | The accordion + quote card |
+| Contact Sections | Left-hand copy on the contact form section |
+| Info Strip Items | The 4-column bar above the footer |
+| Footer Links | Quick Links / Services footer columns |
+| Enquiries | Read-only — submissions from the contact form land here |
+
+Every model has an `is_active` checkbox and an `order` field — untick to
+hide a row without deleting it, change `order` to reorder.
 
 ## 5. Project structure
 
