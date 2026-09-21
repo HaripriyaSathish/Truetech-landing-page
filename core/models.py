@@ -117,6 +117,12 @@ class AutomationSection(models.Model):
         max_length=200, blank=True, help_text='Comma-separated short tags shown under the badge label, e.g. "AI, RPA, DOC, CRM".'
     )
 
+    badge2_title = models.CharField(
+        max_length=100, blank=True, default="Workflows automated",
+        help_text="Second floating badge, shown over the image's bottom-right corner. Leave blank to hide it.",
+    )
+    badge2_subtitle = models.CharField(max_length=150, blank=True, default="Across 4 service lines")
+
     is_active = models.BooleanField(default=True)
     order = models.PositiveIntegerField(default=0)
 
@@ -130,6 +136,24 @@ class AutomationSection(models.Model):
 
     def tag_list(self):
         return [t.strip() for t in self.badge_tags.split(",") if t.strip()]
+
+
+class CtaBanner(models.Model):
+    """A full-width call-to-action banner, e.g. "Ready to automate?" below the services grid."""
+
+    heading = models.CharField(max_length=150)
+    subheading = models.CharField(max_length=200, blank=True)
+    button_label = models.CharField(max_length=50, blank=True, default="Get started")
+    button_url = models.CharField(max_length=200, blank=True, default="#contact")
+    is_active = models.BooleanField(default=True)
+    order = models.PositiveIntegerField(default=0)
+
+    class Meta:
+        ordering = ["order"]
+        verbose_name = "CTA Banner"
+
+    def __str__(self):
+        return self.heading
 
 
 class Service(models.Model):

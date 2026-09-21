@@ -81,6 +81,15 @@
               </div>
             </div>
           {% endif %}
+          {% if automation.badge2_title %}
+            <div class="media-badge media-badge-alt">
+              <div class="badge-icon">{% service_icon "bolt" %}</div>
+              <div>
+                <p class="badge-label">{{ automation.badge2_title }}</p>
+                {% if automation.badge2_subtitle %}<p class="badge-subtitle">{{ automation.badge2_subtitle }}</p>{% endif %}
+              </div>
+            </div>
+          {% endif %}
         </div>
       {% endif %}
 
@@ -103,6 +112,18 @@
         {% endfor %}
       </div>
     </div>
+
+    {% if cta_banner %}
+      <div class="cta-banner reveal">
+        <div>
+          <h3>{{ cta_banner.heading }}</h3>
+          {% if cta_banner.subheading %}<p>{{ cta_banner.subheading }}</p>{% endif %}
+        </div>
+        {% if cta_banner.button_label %}
+          <a class="btn btn-primary" href="{{ cta_banner.button_url }}">{{ cta_banner.button_label }} <span aria-hidden="true">&rarr;</span></a>
+        {% endif %}
+      </div>
+    {% endif %}
   </div>
 </section>
 {% endblock %}
