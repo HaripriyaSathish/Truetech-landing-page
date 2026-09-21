@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<section id="hero" class="hero reveal"
+  {% if hero.background_image %}style="background-image: url('{{ hero.background_image.url }}');"{% endif %}>
+  <div class="container">
+    {% if hero %}
+      <h1>{{ hero.heading }}</h1>
+      {% if hero.subheading %}<p class="hero-subheading">{{ hero.subheading }}</p>{% endif %}
+      {% if hero.description %}<p class="hero-description">{{ hero.description }}</p>{% endif %}
+      {% if hero.cta_label %}
+        <a class="btn btn-primary" href="{{ hero.cta_url }}">{{ hero.cta_label }}</a>
+      {% endif %}
+    {% else %}
+      <h1>Add a Hero Section in the admin panel</h1>
+      <p class="hero-subheading">Go to /admin/ &rarr; Hero Sections &rarr; Add, mark it active, and it will appear here.</p>
+    {% endif %}
+  </div>
+</section>
+
+<section id="services" class="services">
+  <div class="container">
+    <h2 class="reveal">Services</h2>
+    <div class="services-grid">
+      {% for service in services %}
+        <div class="service-card reveal">
+          {% if service.icon %}<img src="{{ service.icon.url }}" alt="{{ service.title }}">{% endif %}
+          <h3>{{ service.title }}</h3>
+          <p>{{ service.description }}</p>
+        </div>
+      {% empty %}
+        <p>Add services in the admin panel &rarr; Services &rarr; Add.</p>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock %}

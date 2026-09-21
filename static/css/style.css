@@ -1,0 +1,132 @@
+:root {
+  --color-bg: #0b0e14;
+  --color-surface: #131722;
+  --color-text: #eef1f6;
+  --color-muted: #9aa4b2;
+  --color-primary: #4f7cff;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", system-ui, sans-serif;
+  background: var(--color-bg);
+  color: var(--color-text);
+  line-height: 1.5;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* Header */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: rgba(11, 14, 20, 0.85);
+  backdrop-filter: blur(8px);
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 72px;
+}
+
+.logo {
+  color: var(--color-text);
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 1.25rem;
+}
+
+.main-nav a {
+  color: var(--color-muted);
+  text-decoration: none;
+  margin-left: 24px;
+  transition: color 0.2s var(--ease-out);
+}
+
+.main-nav a:hover { color: var(--color-text); }
+
+/* Hero */
+.hero {
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  background-size: cover;
+  background-position: center;
+  text-align: center;
+}
+
+.hero h1 { font-size: clamp(2rem, 5vw, 3.5rem); margin-bottom: 16px; }
+.hero-subheading { color: var(--color-muted); font-size: 1.25rem; margin-bottom: 32px; }
+
+.btn {
+  display: inline-block;
+  padding: 14px 32px;
+  border-radius: 999px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: transform 0.2s var(--ease-out), box-shadow 0.2s var(--ease-out);
+}
+
+.btn-primary {
+  background: var(--color-primary);
+  color: #fff;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(79, 124, 255, 0.4);
+}
+
+/* Services */
+.services { padding: 96px 0; }
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 24px;
+  margin-top: 48px;
+}
+
+.service-card {
+  background: var(--color-surface);
+  border-radius: 16px;
+  padding: 32px;
+  transition: transform 0.3s var(--ease-out);
+}
+
+.service-card:hover { transform: translateY(-6px); }
+
+.site-footer {
+  padding: 32px 0;
+  text-align: center;
+  color: var(--color-muted);
+}
+
+/*
+  Scroll-reveal animation: this is the pattern to reuse for every
+  Figma "on scroll into view" animation. Elements start hidden/offset,
+  main.js toggles `.active` via IntersectionObserver when they enter
+  the viewport, and the transition below animates them in.
+  Swap the transform/timing per element to match each Figma spec
+  (duration + easing curve are read from Figma's Prototype panel —
+  see README.md for how to find those values).
+*/
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.6s var(--ease-out), transform 0.6s var(--ease-out);
+}
+
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+}
