@@ -126,4 +126,384 @@
     {% endif %}
   </div>
 </section>
+
+<section id="bpo" class="bpo">
+  <div class="container">
+    <div class="bpo-grid">
+      <div class="bpo-copy">
+        {% if bpo %}
+          {% if bpo.eyebrow_text %}
+            <p class="section-eyebrow reveal">{{ bpo.eyebrow_text }}</p>
+          {% endif %}
+          <h2 class="reveal">
+            <span class="text-accent block-line">{{ bpo.heading }}</span>
+            {% if bpo.heading_highlight %}{{ bpo.heading_highlight }}{% endif %}
+          </h2>
+          {% if bpo.description %}<p class="section-description reveal">{{ bpo.description }}</p>{% endif %}
+
+          <div class="bpo-cards">
+            {% for feature in bpo_features %}
+              <div class="bpo-card reveal">
+                <div class="service-icon icon-blue">
+                  {% if feature.icon %}
+                    <img src="{{ feature.icon.url }}" alt="">
+                  {% else %}
+                    {% service_icon feature.icon_key %}
+                  {% endif %}
+                </div>
+                {% if feature.number %}<span class="card-number">{{ feature.number }}</span>{% endif %}
+                <h3>{{ feature.title }}</h3>
+                <p>{{ feature.description }}</p>
+              </div>
+            {% empty %}
+              <p>Add cards in the admin panel &rarr; BPO Feature Cards &rarr; Add.</p>
+            {% endfor %}
+          </div>
+
+          {% if bpo.tag_list %}
+            <div class="bpo-tags reveal">
+              {% for tag in bpo.tag_list %}<span class="bpo-tag">{{ tag }}</span>{% endfor %}
+            </div>
+          {% endif %}
+        {% else %}
+          <h2>Add a BPO Section in the admin panel</h2>
+        {% endif %}
+      </div>
+
+      {% if bpo and bpo.image %}
+        <div class="bpo-media reveal">
+          <img src="{{ bpo.image.url }}" alt="{{ bpo.heading }}">
+          {% if bpo.stat_value %}
+            <div class="bpo-stat-badge">
+              <strong>{{ bpo.stat_value }}</strong>
+              {% if bpo.stat_caption %}<span>{{ bpo.stat_caption }}</span>{% endif %}
+              <div class="mini-bars"><i></i><i></i><i></i><i></i></div>
+            </div>
+          {% endif %}
+          {% if bpo.badge_value %}
+            <div class="bpo-channel-badge">
+              {% if bpo.badge_label %}<span class="channel-label">{{ bpo.badge_label }}</span>{% endif %}
+              <strong>{{ bpo.badge_value }}</strong>
+            </div>
+          {% endif %}
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+<section id="offices" class="offices">
+  <div class="container">
+    {% if offices_section %}
+      <div class="section-header-center">
+        {% if offices_section.eyebrow_text %}<p class="section-eyebrow reveal centered">{{ offices_section.eyebrow_text }}</p>{% endif %}
+        <h2 class="reveal centered">{{ offices_section.heading }}</h2>
+        {% if offices_section.description %}<p class="section-description centered reveal">{{ offices_section.description }}</p>{% endif %}
+      </div>
+    {% endif %}
+
+    <div class="offices-grid">
+      {% for office in offices %}
+        <div class="office-card reveal"{% if office.image %} style="background-image: url('{{ office.image.url }}');"{% endif %}>
+          <span class="office-badge icon-{{ office.label_color }}">{% service_icon "map-pin" %} {{ office.label }}</span>
+          <div class="office-overlay">
+            <h3>{{ office.city }}</h3>
+            {% if office.address %}<p class="office-address">{{ office.address }}</p>{% endif %}
+          </div>
+          <div class="office-footer-bar">
+            {% if office.timezone_label %}<span>{% service_icon "clock" %} {{ office.timezone_label }}</span>{% endif %}
+            {% if office.phone %}<span>{% service_icon "phone" %} {{ office.phone }}</span>{% endif %}
+          </div>
+        </div>
+      {% empty %}
+        <p>Add offices in the admin panel &rarr; Offices &rarr; Add.</p>
+      {% endfor %}
+    </div>
+
+    {% if offices %}
+      <div class="offices-toggle reveal">
+        {% for office in offices %}
+          <button type="button" class="toggle-pill {% if forloop.first %}active{% endif %}" data-office="{{ forloop.counter0 }}">
+            {{ office.toggle_label|default:office.city }}
+          </button>
+          {% if not forloop.last %}<span class="toggle-dots"></span>{% endif %}
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    {% if offices_section.highlight_title %}
+      <div class="highlight-bar reveal">
+        <div class="highlight-left">
+          <span class="highlight-icon">{% service_icon "clock" %}</span>
+          <div>
+            <p class="highlight-title">{{ offices_section.highlight_title }}</p>
+            {% if offices_section.highlight_description %}<p class="highlight-desc">{{ offices_section.highlight_description }}</p>{% endif %}
+          </div>
+        </div>
+        {% if offices_section.channel_list %}
+          <div class="highlight-right">
+            <span class="highlight-icon">{% service_icon "grid" %}</span>
+            <div>
+              <p class="highlight-title">Channels</p>
+              <div class="highlight-channels">
+                {% for ch in offices_section.channel_list %}<span class="channel-pill">{{ ch }}</span>{% endfor %}
+              </div>
+            </div>
+          </div>
+        {% endif %}
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+<section id="why-us" class="whyus">
+  <div class="container">
+    {% if whyus %}
+      {% if whyus.eyebrow_text %}<p class="section-eyebrow reveal">{{ whyus.eyebrow_text }}</p>{% endif %}
+      <h2 class="reveal">{{ whyus.heading }}</h2>
+      {% if whyus.description %}<p class="section-description reveal">{{ whyus.description }}</p>{% endif %}
+
+      <div class="whyus-grid">
+        <div class="whyus-col">
+          {% for feature in whyus_left %}
+            <div class="whyus-card reveal">
+              <div class="service-icon icon-{{ feature.icon_color }}">
+                {% if feature.icon %}<img src="{{ feature.icon.url }}" alt="">{% else %}{% service_icon feature.icon_key %}{% endif %}
+              </div>
+              <div>
+                <h3>{{ feature.title }}</h3>
+                <p>{{ feature.description }}</p>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+
+        {% if whyus.image %}
+          <div class="whyus-media reveal">
+            <img src="{{ whyus.image.url }}" alt="{{ whyus.heading }}">
+            {% if whyus.badge_value %}
+              <div class="whyus-badge">
+                {% if whyus.badge_label %}<span>{{ whyus.badge_label }}</span>{% endif %}
+                <strong>{{ whyus.badge_value }}</strong>
+              </div>
+            {% endif %}
+          </div>
+        {% endif %}
+
+        <div class="whyus-col">
+          {% for feature in whyus_right %}
+            <div class="whyus-card reveal">
+              <div class="service-icon icon-{{ feature.icon_color }}">
+                {% if feature.icon %}<img src="{{ feature.icon.url }}" alt="">{% else %}{% service_icon feature.icon_key %}{% endif %}
+              </div>
+              <div>
+                <h3>{{ feature.title }}</h3>
+                <p>{{ feature.description }}</p>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    {% else %}
+      <h2>Add a Why Us Section in the admin panel</h2>
+    {% endif %}
+  </div>
+</section>
+
+<section id="commitments" class="commitments">
+  <div class="container">
+    {% if commitments_section %}
+      <div class="section-header-center">
+        {% if commitments_section.eyebrow_text %}
+          <p class="section-eyebrow reveal centered"><span class="eyebrow-square"></span>{{ commitments_section.eyebrow_text }}</p>
+        {% endif %}
+        <h2 class="reveal centered">{{ commitments_section.heading }}</h2>
+      </div>
+    {% endif %}
+
+    <div class="commitments-grid">
+      {% for step in commitment_steps %}
+        <div class="commitment-card reveal"{% if step.image %} style="background-image: url('{{ step.image.url }}');"{% endif %}>
+          <div class="commitment-overlay">
+            {% if step.number %}<span class="commitment-number">{{ step.number }}</span>{% endif %}
+            <h3>{{ step.title }}</h3>
+            <p>{{ step.description }}</p>
+            <span class="service-underline icon-orange"></span>
+          </div>
+        </div>
+      {% empty %}
+        <p>Add steps in the admin panel &rarr; Commitment Steps &rarr; Add.</p>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section id="process" class="process-timeline">
+  <div class="container">
+    {% if process_section %}
+      {% if process_section.eyebrow_text %}
+        <p class="section-eyebrow on-dark reveal"><span class="eyebrow-square"></span>{{ process_section.eyebrow_text }}</p>
+      {% endif %}
+      <h2 class="on-dark reveal">{{ process_section.heading }}</h2>
+      {% if process_section.description %}<p class="section-description on-dark reveal">{{ process_section.description }}</p>{% endif %}
+    {% endif %}
+
+    <div class="timeline">
+      {% for step in process_steps %}
+        <div class="timeline-step reveal">
+          <div class="timeline-icon">{% service_icon step.icon_key %}</div>
+          {% if not forloop.last %}<span class="timeline-connector"></span>{% endif %}
+          <span class="timeline-number">{{ step.number }}</span>
+          <h3>{{ step.title }}</h3>
+          <p>{{ step.description }}</p>
+        </div>
+      {% empty %}
+        <p class="on-dark">Add steps in the admin panel &rarr; Process Steps &rarr; Add.</p>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section id="service-lines" class="service-lines">
+  <div class="container">
+    {% if service_lines_section %}
+      <p class="section-eyebrow reveal">{{ service_lines_section.eyebrow_text }}</p>
+      <div class="service-lines-header">
+        <h2 class="reveal">{{ service_lines_section.heading }}</h2>
+        {% if service_lines_section.description %}<p class="section-description reveal">{{ service_lines_section.description }}</p>{% endif %}
+      </div>
+    {% endif %}
+
+    {% if service_lines %}
+      <div class="service-lines-panel reveal">
+        <div class="service-lines-sidebar">
+          {% for line in service_lines %}
+            <button type="button" class="sidebar-item {% if forloop.first %}active{% endif %}" data-line="{{ forloop.counter0 }}">
+              <span class="sidebar-number">{{ line.number }}</span>
+              <span class="sidebar-title">{{ line.title }}</span>
+              <span class="sidebar-chevron" aria-hidden="true">&rsaquo;</span>
+            </button>
+          {% endfor %}
+        </div>
+
+        {% for line in service_lines %}
+          <div class="service-lines-detail {% if forloop.first %}active{% endif %}" data-line-panel="{{ forloop.counter0 }}">
+            {% if line.image %}<img src="{{ line.image.url }}" alt="{{ line.title }}">{% endif %}
+            <div class="detail-copy">
+              <div class="service-icon icon-blue">{% service_icon line.icon_key %}</div>
+              <span class="detail-number">{{ line.number }}</span>
+              <h3>{{ line.title }}</h3>
+              {% if line.description %}<p>{{ line.description }}</p>{% endif %}
+              {% if line.bullet_list %}
+                <ul class="detail-bullets">
+                  {% for bullet in line.bullet_list %}<li>{% service_icon "check" %}{{ bullet }}</li>{% endfor %}
+                </ul>
+              {% endif %}
+              {% if line.button_label %}
+                <a class="btn btn-primary" href="{{ line.button_url }}">{{ line.button_label }}</a>
+              {% endif %}
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    {% else %}
+      <p>Add up to 8 rows in the admin panel &rarr; Service Lines &rarr; Add.</p>
+    {% endif %}
+  </div>
+</section>
+
+<section id="faq" class="faq">
+  <div class="container">
+    {% if faq_section %}
+      {% if faq_section.eyebrow_text %}<p class="section-eyebrow reveal centered">{{ faq_section.eyebrow_text }}</p>{% endif %}
+      <h2 class="reveal centered">{{ faq_section.heading }}</h2>
+
+      <div class="faq-grid">
+        {% if faq_section.image %}
+          <div class="faq-media reveal">
+            <img src="{{ faq_section.image.url }}" alt="{{ faq_section.heading }}">
+            {% if faq_section.quote_text %}
+              <div class="faq-quote">
+                <p>&ldquo;{{ faq_section.quote_text }}&rdquo;</p>
+                {% if faq_section.quote_author %}<p class="faq-quote-author"><span></span>{{ faq_section.quote_author }}</p>{% endif %}
+              </div>
+            {% endif %}
+          </div>
+        {% endif %}
+
+        <div class="faq-list">
+          {% for item in faq_items %}
+            <div class="faq-item {% if forloop.first %}active{% endif %}">
+              <button type="button" class="faq-question">
+                <span>{{ item.question }}</span>
+                <span class="faq-toggle-icon">{% service_icon "minus" %}{% service_icon "plus" %}</span>
+              </button>
+              <div class="faq-answer">
+                <p>{{ item.answer }}</p>
+              </div>
+            </div>
+          {% empty %}
+            <p>Add questions in the admin panel &rarr; FAQ Items &rarr; Add.</p>
+          {% endfor %}
+        </div>
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+<section id="contact" class="contact"
+  {% if contact_section.background_image %}style="background-image: url('{{ contact_section.background_image.url }}');"{% endif %}>
+  <div class="contact-overlay"></div>
+  <div class="container contact-inner">
+    {% if contact_section %}
+      <div class="contact-copy reveal">
+        {% if contact_section.eyebrow_text %}<p class="section-eyebrow on-dark">{{ contact_section.eyebrow_text }}</p>{% endif %}
+        <h2 class="on-dark">{{ contact_section.heading }}</h2>
+        {% if contact_section.description %}<p class="section-description on-dark">{{ contact_section.description }}</p>{% endif %}
+        {% if contact_section.bullet_list %}
+          <ul class="contact-bullets">
+            {% for bullet in contact_section.bullet_list %}<li>{% service_icon "check" %}{{ bullet }}</li>{% endfor %}
+          </ul>
+        {% endif %}
+      </div>
+    {% endif %}
+
+    <form class="contact-form reveal" method="post" action="{% url 'index' %}#contact">
+      {% csrf_token %}
+      <div class="form-row">
+        <div class="form-field">
+          <label for="{{ enquiry_form.full_name.id_for_label }}">Full Name *</label>
+          {{ enquiry_form.full_name }}
+          {% for error in enquiry_form.full_name.errors %}<p class="form-error">{{ error }}</p>{% endfor %}
+        </div>
+        <div class="form-field">
+          <label for="{{ enquiry_form.company.id_for_label }}">Company *</label>
+          {{ enquiry_form.company }}
+          {% for error in enquiry_form.company.errors %}<p class="form-error">{{ error }}</p>{% endfor %}
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-field">
+          <label for="{{ enquiry_form.email.id_for_label }}">Email *</label>
+          {{ enquiry_form.email }}
+          {% for error in enquiry_form.email.errors %}<p class="form-error">{{ error }}</p>{% endfor %}
+        </div>
+        <div class="form-field">
+          <label for="{{ enquiry_form.phone.id_for_label }}">Phone</label>
+          {{ enquiry_form.phone }}
+          {% for error in enquiry_form.phone.errors %}<p class="form-error">{{ error }}</p>{% endfor %}
+        </div>
+      </div>
+      <div class="form-field">
+        <label for="{{ enquiry_form.service.id_for_label }}">Service you're interested in</label>
+        {{ enquiry_form.service }}
+      </div>
+      <div class="form-field">
+        <label for="{{ enquiry_form.requirement.id_for_label }}">Requirement</label>
+        {{ enquiry_form.requirement }}
+      </div>
+      <button type="submit" class="btn btn-primary btn-block">Send Your Enquiry</button>
+    </form>
+  </div>
+</section>
 {% endblock %}

@@ -1,6 +1,32 @@
 from django.contrib import admin
 
-from .models import AutomationSection, CtaBanner, HeroFeature, HeroSection, NavLink, Service, SiteSettings
+from .models import (
+    AutomationSection,
+    BpoFeature,
+    BpoSection,
+    CommitmentStep,
+    CommitmentsSection,
+    ContactSection,
+    CtaBanner,
+    Enquiry,
+    FaqItem,
+    FaqSection,
+    FooterLink,
+    HeroFeature,
+    HeroSection,
+    InfoStripItem,
+    NavLink,
+    Office,
+    OfficesSection,
+    ProcessSection,
+    ProcessStep,
+    Service,
+    ServiceLine,
+    ServiceLinesSection,
+    SiteSettings,
+    WhyUsFeature,
+    WhyUsSection,
+)
 
 
 @admin.register(SiteSettings)
@@ -61,3 +87,137 @@ class CtaBannerAdmin(admin.ModelAdmin):
     list_display = ("heading", "is_active", "order")
     list_editable = ("is_active", "order")
     list_filter = ("is_active",)
+
+
+@admin.register(BpoSection)
+class BpoSectionAdmin(admin.ModelAdmin):
+    list_display = ("heading", "is_active", "order")
+    list_editable = ("is_active", "order")
+    list_filter = ("is_active",)
+
+
+@admin.register(BpoFeature)
+class BpoFeatureAdmin(admin.ModelAdmin):
+    list_display = ("number", "title", "icon_key", "is_active", "order")
+    list_display_links = ("title",)
+    list_editable = ("number", "icon_key", "is_active", "order")
+    list_filter = ("is_active",)
+
+
+@admin.register(OfficesSection)
+class OfficesSectionAdmin(admin.ModelAdmin):
+    list_display = ("heading", "is_active", "order")
+    list_editable = ("is_active", "order")
+    list_filter = ("is_active",)
+
+
+@admin.register(Office)
+class OfficeAdmin(admin.ModelAdmin):
+    list_display = ("city", "label", "label_color", "phone", "is_active", "order")
+    list_editable = ("label", "label_color", "phone", "is_active", "order")
+    list_filter = ("is_active", "label_color")
+
+
+@admin.register(WhyUsSection)
+class WhyUsSectionAdmin(admin.ModelAdmin):
+    list_display = ("heading", "is_active", "order")
+    list_editable = ("is_active", "order")
+    list_filter = ("is_active",)
+
+
+@admin.register(WhyUsFeature)
+class WhyUsFeatureAdmin(admin.ModelAdmin):
+    list_display = ("title", "column", "icon_key", "icon_color", "is_active", "order")
+    list_editable = ("column", "icon_key", "icon_color", "is_active", "order")
+    list_filter = ("column", "is_active", "icon_color")
+
+
+@admin.register(CommitmentsSection)
+class CommitmentsSectionAdmin(admin.ModelAdmin):
+    list_display = ("heading", "is_active", "order")
+    list_editable = ("is_active", "order")
+    list_filter = ("is_active",)
+
+
+@admin.register(CommitmentStep)
+class CommitmentStepAdmin(admin.ModelAdmin):
+    list_display = ("number", "title", "is_active", "order")
+    list_display_links = ("title",)
+    list_editable = ("number", "is_active", "order")
+    list_filter = ("is_active",)
+
+
+@admin.register(ProcessSection)
+class ProcessSectionAdmin(admin.ModelAdmin):
+    list_display = ("heading", "is_active", "order")
+    list_editable = ("is_active", "order")
+    list_filter = ("is_active",)
+
+
+@admin.register(ProcessStep)
+class ProcessStepAdmin(admin.ModelAdmin):
+    list_display = ("number", "title", "icon_key", "is_active", "order")
+    list_display_links = ("title",)
+    list_editable = ("number", "icon_key", "is_active", "order")
+    list_filter = ("is_active",)
+
+
+@admin.register(ServiceLinesSection)
+class ServiceLinesSectionAdmin(admin.ModelAdmin):
+    list_display = ("heading", "is_active", "order")
+    list_editable = ("is_active", "order")
+    list_filter = ("is_active",)
+
+
+@admin.register(ServiceLine)
+class ServiceLineAdmin(admin.ModelAdmin):
+    list_display = ("number", "title", "icon_key", "is_active", "order")
+    list_display_links = ("title",)
+    list_editable = ("number", "icon_key", "is_active", "order")
+    list_filter = ("is_active",)
+    fieldsets = (
+        ("Sidebar", {"fields": ("number", "title", "icon_key", "order", "is_active")}),
+        ("Detail panel", {"fields": ("image", "description", "bullets", "button_label", "button_url")}),
+    )
+
+
+@admin.register(InfoStripItem)
+class InfoStripItemAdmin(admin.ModelAdmin):
+    list_display = ("title", "icon_key", "icon_color", "is_active", "order")
+    list_editable = ("icon_key", "icon_color", "is_active", "order")
+    list_filter = ("is_active",)
+
+
+@admin.register(FooterLink)
+class FooterLinkAdmin(admin.ModelAdmin):
+    list_display = ("label", "column", "url", "is_active", "order")
+    list_editable = ("column", "url", "is_active", "order")
+    list_filter = ("column", "is_active")
+
+
+@admin.register(FaqSection)
+class FaqSectionAdmin(admin.ModelAdmin):
+    list_display = ("heading", "is_active", "order")
+    list_editable = ("is_active", "order")
+    list_filter = ("is_active",)
+
+
+@admin.register(FaqItem)
+class FaqItemAdmin(admin.ModelAdmin):
+    list_display = ("question", "is_active", "order")
+    list_editable = ("is_active", "order")
+    list_filter = ("is_active",)
+
+
+@admin.register(ContactSection)
+class ContactSectionAdmin(admin.ModelAdmin):
+    list_display = ("heading", "is_active", "order")
+    list_editable = ("is_active", "order")
+    list_filter = ("is_active",)
+
+
+@admin.register(Enquiry)
+class EnquiryAdmin(admin.ModelAdmin):
+    list_display = ("full_name", "company", "email", "service", "submitted_at")
+    list_filter = ("service", "submitted_at")
+    readonly_fields = ("submitted_at",)
