@@ -1,12 +1,12 @@
 from django.shortcuts import render
 
-from .models import HeroSection, Service, SiteSettings
+from .models import HeroFeature, HeroSection, Service
 
 
 def index(request):
     context = {
-        "site_settings": SiteSettings.objects.first(),
         "hero": HeroSection.objects.filter(is_active=True).first(),
+        "hero_features": HeroFeature.objects.filter(is_active=True),
         "services": Service.objects.filter(is_active=True),
     }
     return render(request, "core/index.html", context)
